@@ -1,9 +1,16 @@
 // src/app/page.tsx
-import Rankings from "./components/Rankings";
+import Podium from "./components/main/Podium";
+import Header from "./components/global/Header";
+import Rankings from "./components/main/Rankings";
 import { mockData } from "./data/mock-ranking";
 
 export default function Page() {
-  const allData = [...mockData]; // 합쳐서 하나의 리스트로 넘김
-
-  return <Rankings data={allData} />;
+  const allData = [...mockData];
+  return (
+    <>
+      <Header />
+      <Podium data={allData} />
+      <Rankings data={allData} />
+    </>
+  );
 }
