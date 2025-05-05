@@ -1,11 +1,11 @@
-// src/app/page.tsx
-import Podium from "./components/main/Podium";
-import Header from "./components/global/Header";
-import Rankings from "./components/main/Rankings";
+import Podium from "./Podium";
+import Header from "./global/Header";
+import Rankings from "./Rankings";
 import { mockData } from "./data/mock-ranking";
 
 export default function Page() {
-  const allData = [...mockData];
+  // mockData.data에 접근하여 배열 가져오기
+  const allData = [...mockData.data];
   return (
     <>
       <Header />
