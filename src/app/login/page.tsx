@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
-import { NaverIcon, GoogleIcon, KakaoIcon } from "./social-icons";
+import { NaverIcon, GoogleIcon, KakaoIcon } from "./components/social-icons";
 
 export default function LoginPage() {
   const [username, setUsername] = useState("");

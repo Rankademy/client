@@ -1,6 +1,6 @@
-import Podium from "./Podium";
-import Header from "./global/Header";
-import Rankings from "./Rankings";
+import Podium from "./components/Podium";
+import Header from "./components/global/Header";
+import Rankings from "./components/Rankings";
 import { mockData } from "./data/mock-ranking";
 
 export default function Page() {
