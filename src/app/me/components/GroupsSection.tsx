@@ -5,17 +5,15 @@ interface GroupsSectionProps {
 }
 
 export default function GroupsSection({ userData }: GroupsSectionProps) {
-  const { groups } = userData;
-
   return (
     <div className="mt-8 space-y-6">
       <h2 className="text-xl font-semibold border-b border-gray-800 pb-2">
         소속 그룹
       </h2>
 
-      {groups.length > 0 ? (
+      {userData.groups.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {groups.map((group) => (
+          {userData.groups.map((group) => (
             <div key={group.id} className="bg-gray-800 p-4 rounded-lg">
               <h3 className="font-medium">{group.name}</h3>
               {group.description && (

@@ -13,7 +13,26 @@ import GameInfoSection from "./components/GameInfoSection";
 import BioSection from "./components/BioSection";
 import GroupsSection from "./components/GroupsSection";
 import SaveButton from "./components/SaveButton";
-import { mockUserData } from "../data/mock-user";
+
+// 임시 데이터
+const mockUserData: UserData = {
+  id: 1,
+  username: "player123",
+  email: "user@example.com",
+  riotId: "Player#KR1",
+  univName: "서울대학교",
+  univEmail: "student@snu.ac.kr",
+  univVerified: true,
+  description:
+    "안녕하세요! 미드 라인을 주로 플레이하는 플레이어입니다. 팀 플레이를 중요시하며 소통을 잘하는 편입니다.",
+  mainPosition: "MID",
+  subPosition: "SUP",
+  groups: [
+    { id: 1, name: "서울대 LOL 동아리" },
+    { id: 2, name: "미드 라이너 모임" },
+  ],
+  createdAt: new Date("2023-01-15"),
+};
 
 export default function ProfilePage() {
   const [userData, setUserData] = useState<UserData | null>(null);
@@ -22,20 +41,20 @@ export default function ProfilePage() {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
 
-  const UserData = mockUserData.data;
-
   useEffect(() => {
     // 실제 구현에서는 API 호출로 대체
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       try {
-        setUserData(UserData);
-        setEditData(UserData);
+        setUserData(mockUserData);
+        setEditData(mockUserData);
         setIsLoading(false);
       } catch (error) {
         setHasError(true);
         setIsLoading(false);
       }
     }, 500);
+
+    return () => clearTimeout(timer);
   }, []);
 
   const handleEditToggle = () => {
@@ -64,13 +83,11 @@ export default function ProfilePage() {
     }
   };
 
-  // 로딩 상태 또는 에러 상태 처리
-  if (isLoading) {
-    return <LoadingState isLoading={true} hasError={false} />;
-  }
-
-  if (hasError || !userData) {
-    return <LoadingState isLoading={false} hasError={true} />;
+  // 로딩 중이거나 에러가 있는 경우 로딩 상태 표시
+  if (isLoading || hasError || !userData) {
+    return (
+      <LoadingState isLoading={isLoading} hasError={hasError || !userData} />
+    );
   }
 
   // 편집 중인 데이터와 원본 데이터를 병합하여 현재 표시할 데이터 생성

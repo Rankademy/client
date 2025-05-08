@@ -1,67 +1,69 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import { CircleUser, LogIn, LogOut } from "lucide-react";
-import { useEffect, useState } from "react";
+import Link from "next/link";
+import { LogIn, UserCircle, LogOut } from "lucide-react";
+import { useAuth } from "@/app/context/auth-context";
 
 export default function Header() {
-  const router = useRouter();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    setIsLoggedIn(!!token);
-  }, []);
+  const { user, logout, isAuthenticated } = useAuth();
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    setIsLoggedIn(false);
-    router.refresh(); // 또는 router.push("/")로 리디렉션도 가능
+    logout();
+    // 로그아웃 후 홈페이지로 이동하는 로직은 필요하다면 추가
   };
 
   return (
-    <header className="container mx-auto p-4 flex justify-between items-center">
-      <div></div>
+    <header className="bg-black py-4 px-6">
+      <div className="container mx-auto flex items-center justify-between">
+        {/* 왼쪽 여백 공간 */}
+        <div className="w-32 md:w-40"></div>
 
-      <div className="text-center">
-        <h2 className="text-2xl font-bold">Rankademy</h2>
+        {/* 중앙 로고 */}
+        <div className="flex-1 flex justify-center">
+          <Link href="/" className="text-2xl font-bold text-white">
+            Rankademy
+          </Link>
+        </div>
+
+        {/* 오른쪽 버튼 그룹 */}
+        <div className="w-32 md:w-40 flex justify-end">
+          {isAuthenticated ? (
+            <>
+              <Link
+                href="/me"
+                className="flex items-center gap-1 text-sm text-gray-300 hover:text-white transition-colors mr-4"
+              >
+                <UserCircle size={18} />
+                <span>{user?.username || "프로필"}</span>
+              </Link>
+              <button
+                onClick={handleLogout}
+                className="flex items-center gap-1 text-sm text-gray-300 hover:text-white transition-colors"
+              >
+                <LogOut size={18} />
+                <span>로그아웃</span>
+              </button>
+            </>
+          ) : (
+            <>
+              <Link
+                href="/login"
+                className="flex items-center gap-1 text-sm text-gray-300 hover:text-white transition-colors mr-4"
+              >
+                <LogIn size={18} />
+                <span>로그인</span>
+              </Link>
+              <Link
+                href="/register"
+                className="flex items-center gap-1 text-sm text-gray-300 hover:text-white transition-colors"
+              >
+                <UserCircle size={18} />
+                <span>회원가입</span>
+              </Link>
+            </>
+          )}
+        </div>
       </div>
-
-      {isLoggedIn ? (
-        <div className="flex items-center gap-4">
-          <div
-            className="flex items-center gap-2 cursor-pointer"
-            onClick={() => router.push("/me")}
-          >
-            <CircleUser className="w-6 h-6" />
-            <span className="text-sm">내 정보</span>
-          </div>
-          <div
-            className="flex items-center gap-2 cursor-pointer text-red-400"
-            onClick={handleLogout}
-          >
-            <LogOut className="w-6 h-6" />
-            <span className="text-sm">로그아웃</span>
-          </div>
-        </div>
-      ) : (
-        <div className="flex items-center gap-4">
-          <div
-            className="flex items-center gap-2 cursor-pointer"
-            onClick={() => router.push("/login")}
-          >
-            <LogIn className="w-6 h-6" />
-            <span className="text-sm">로그인</span>
-          </div>
-          <div
-            className="flex items-center gap-2 cursor-pointer"
-            onClick={() => router.push("/register")}
-          >
-            <LogIn className="w-6 h-6" />
-            <span className="text-sm">회원가입</span>
-          </div>
-        </div>
-      )}
     </header>
   );
 }

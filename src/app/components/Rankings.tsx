@@ -3,23 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { ChevronDown, Trophy } from "lucide-react";
-
-type Ranker = {
-  id: number;
-  username: string;
-  icon: string;
-};
-
-type University = {
-  univId: number;
-  univName: string;
-  univLogo: string;
-  tierAvg: number;
-  totalMatches: number;
-  winCnt: number;
-  totalUserCnt: number;
-  ranker: Ranker;
-};
+import type { Ranker, University } from "@/app/types/ranking";
 
 type RankingsProps = {
   data: University[];
@@ -45,31 +29,38 @@ export default function Rankings({ data }: RankingsProps) {
 
   // 티어 이름 변환 함수
   const getTierName = (tierAvg: number) => {
-    if (tierAvg >= 2700) return "Challenger";
-    if (tierAvg >= 2500) return "Grandmaster";
-    if (tierAvg >= 2300) return "Master";
-    if (tierAvg >= 2100) return "Diamond 1";
-    if (tierAvg >= 2000) return "Diamond 2";
-    if (tierAvg >= 1900) return "Diamond 3";
-    if (tierAvg >= 1800) return "Diamond 4";
-    if (tierAvg >= 1700) return "Emerald 1";
-    if (tierAvg >= 1600) return "Emerald 2";
-    if (tierAvg >= 1500) return "Emerald 3";
-    if (tierAvg >= 1400) return "Emerald 4";
-    if (tierAvg >= 1300) return "Platinum 1";
-    if (tierAvg >= 1200) return "Platinum 2";
-    if (tierAvg >= 1100) return "Platinum 3";
-    if (tierAvg >= 1000) return "Platinum 4";
-    if (tierAvg >= 900) return "Gold 1";
-    if (tierAvg >= 800) return "Gold 2";
-    if (tierAvg >= 700) return "Gold 3";
-    if (tierAvg >= 600) return "Gold 4";
-    if (tierAvg >= 500) return "Silver 1";
-    if (tierAvg >= 400) return "Silver 2";
-    if (tierAvg >= 300) return "Silver 3";
-    if (tierAvg >= 200) return "Silver 4";
-    if (tierAvg >= 100) return "Bronze 1";
-    if (tierAvg >= 0) return "Bronze 2";
+    if (tierAvg >= 3000) return "Challenger";
+    if (tierAvg >= 2900) return "Grandmaster";
+    if (tierAvg >= 2800) return "Master";
+    if (tierAvg >= 2700) return "Diamond 1";
+    if (tierAvg >= 2600) return "Diamond 2";
+    if (tierAvg >= 2500) return "Diamond 3";
+    if (tierAvg >= 2400) return "Diamond 4";
+    if (tierAvg >= 2300) return "Emerald 1";
+    if (tierAvg >= 2200) return "Emerald 2";
+    if (tierAvg >= 2100) return "Emerald 3";
+    if (tierAvg >= 2000) return "Emerald 4";
+    if (tierAvg >= 1900) return "Platinum 1";
+    if (tierAvg >= 1800) return "Platinum 2";
+    if (tierAvg >= 1700) return "Platinum 3";
+    if (tierAvg >= 1600) return "Platinum 4";
+    if (tierAvg >= 1500) return "Gold 1";
+    if (tierAvg >= 1400) return "Gold 2";
+    if (tierAvg >= 1300) return "Gold 3";
+    if (tierAvg >= 1200) return "Gold 4";
+    if (tierAvg >= 1100) return "Silver 1";
+    if (tierAvg >= 1000) return "Silver 2";
+    if (tierAvg >= 900) return "Silver 3";
+    if (tierAvg >= 800) return "Silver 4";
+    if (tierAvg >= 700) return "Bronze 1";
+    if (tierAvg >= 600) return "Bronze 2";
+    if (tierAvg >= 500) return "Bronze 3";
+    if (tierAvg >= 400) return "Bronze 4";
+    if (tierAvg >= 300) return "Iron 1";
+    if (tierAvg >= 200) return "Iron 2";
+    if (tierAvg >= 100) return "Iron 3";
+    if (tierAvg >= 0) return "Iron 4";
+
     return "Unranked";
   };
 
@@ -87,7 +78,7 @@ export default function Rankings({ data }: RankingsProps) {
         <div className="bg-gray-800 rounded-md overflow-hidden">
           <div className="grid grid-cols-12 bg-gray-700 p-3 text-sm font-medium">
             <div className="col-span-1 text-center">순위</div>
-            <div className="col-span-2">학교</div>
+            <div className="col-span-2 text-center">학교</div>
             <div className="col-span-2 text-center">평균 티어</div>
             <div className="col-span-5 text-center">랭커</div>
             <div className="col-span-2 text-center">승리 수</div>

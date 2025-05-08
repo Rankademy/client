@@ -2,21 +2,7 @@
 
 import Image from "next/image";
 import { Trophy } from "lucide-react";
-
-type Ranking = {
-  univId: number;
-  univName: string;
-  univLogo: string;
-  tierAvg: number;
-  totalMatches: number;
-  winCnt: number;
-  totalUserCnt: number;
-  ranker: {
-    id: number;
-    username: string;
-    icon: string;
-  };
-};
+import type { University as Ranking } from "@/app/types/ranking";
 
 export default function Podium({ data }: { data: Ranking[] }) {
   const sortedTop3 = data.sort((a, b) => a.univId - b.univId);

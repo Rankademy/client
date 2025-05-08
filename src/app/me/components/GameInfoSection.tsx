@@ -14,7 +14,6 @@ export default function GameInfoSection({
   isEditing,
   onInputChange,
 }: GameInfoSectionProps) {
-  const { mainPosition, subPosition } = userData;
   const positionOptions: Position[] = ["TOP", "JG", "MID", "ADC", "SUP"];
 
   const getPositionLabel = (position: Position) => {
@@ -42,7 +41,7 @@ export default function GameInfoSection({
           {isEditing ? (
             <select
               name="mainPosition"
-              value={mainPosition}
+              value={userData.mainPosition}
               onChange={onInputChange}
               className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
@@ -57,9 +56,9 @@ export default function GameInfoSection({
               <div
                 className={`w-10 h-10 rounded-full flex items-center justify-center bg-blue-900 text-blue-300`}
               >
-                {mainPosition.substring(0, 1)}
+                {userData.mainPosition.substring(0, 1)}
               </div>
-              <span>{getPositionLabel(mainPosition)}</span>
+              <span>{getPositionLabel(userData.mainPosition)}</span>
             </div>
           )}
         </div>
@@ -71,7 +70,7 @@ export default function GameInfoSection({
           {isEditing ? (
             <select
               name="subPosition"
-              value={subPosition}
+              value={userData.subPosition}
               onChange={onInputChange}
               className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
@@ -86,9 +85,9 @@ export default function GameInfoSection({
               <div
                 className={`w-10 h-10 rounded-full flex items-center justify-center bg-purple-900 text-purple-300`}
               >
-                {subPosition.substring(0, 1)}
+                {userData.subPosition.substring(0, 1)}
               </div>
-              <span>{getPositionLabel(subPosition)}</span>
+              <span>{getPositionLabel(userData.subPosition)}</span>
             </div>
           )}
         </div>

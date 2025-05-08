@@ -1,7 +1,7 @@
 import type { UserResponse } from "../types/user";
 
 export const mockUserData: UserResponse = {
-  message: "유저 데이터를 성공적으로 불러왔습니다.",
+  message: "대학 랭킹 데이터를 성공적으로 불러왔습니다.",
   data: {
     id: 1,
     username: "player123",
