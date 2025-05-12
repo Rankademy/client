@@ -22,6 +22,24 @@ export default function Podium({ data }: { data: Ranking[] }) {
     return "Emerald+";
   };
 
+  // 티어 이미지 경로 가져오기
+  const getTierImagePath = (tierName: string) => {
+    // 티어 이름에서 숫자 제거 (예: "Diamond 4" -> "diamond")
+    const baseTier = tierName.split(" ")[0].toLowerCase();
+    return `/ranked-emblem/Rank=${baseTier}.png`;
+  };
+
+  // 안전한 이미지 URL 생성 함수
+  const getSafeImageUrl = (url: string | undefined) => {
+    if (!url) return "/university-campus.png";
+
+    // 외부 URL인 경우 그대로 반환
+    if (url.startsWith("http")) return url;
+
+    // 내부 경로인 경우 placeholder로 대체
+    return url || "/university-campus.png";
+  };
+
   return (
     <section className="container mx-auto mt-12 mb-16">
       <h2 className="text-2xl font-bold text-center mb-8">TOP 3</h2>
@@ -39,7 +57,7 @@ export default function Podium({ data }: { data: Ranking[] }) {
               <div className="w-24 h-24 rounded-full bg-gray-800 border-2 border-gray-600 flex items-center justify-center mb-3 shadow-lg overflow-hidden">
                 {second?.univLogo ? (
                   <Image
-                    src={second.univLogo || "/placeholder.svg"}
+                    src={getSafeImageUrl(second.univLogo) || "/placeholder.svg"}
                     alt={second?.univName || "2등"}
                     width={80}
                     height={80}
@@ -54,13 +72,34 @@ export default function Podium({ data }: { data: Ranking[] }) {
             </div>
 
             {/* 포디움 */}
-            <div className="bg-gradient-to-t from-gray-700 to-gray-600 h-[180px] w-full rounded-t-md shadow-[inset_0_2px_6px_rgba(0,0,0,0.3)] flex flex-col items-center justify-end pb-4 border-t-2 border-gray-500">
+            <div className="bg-gradient-to-t from-gray-700 to-gray-600 h-[190px] w-full rounded-t-md shadow-[inset_0_2px_6px_rgba(0,0,0,0.3)] flex flex-col items-center justify-end pb-4 border-t-2 border-gray-500">
               <div className="text-center mb-4">
                 <div className="text-sm font-medium text-gray-300 mb-1">
                   {second?.univName}
                 </div>
-                <div className="text-xs text-blue-400">
-                  {second && getTierName(second.tierAvg)}
+                <div className="flex items-center justify-center gap-2">
+                  {second && (
+                    <div className="relative w-8 h-8">
+                      <Image
+                        src={
+                          getTierImagePath(getTierName(second.tierAvg)) ||
+                          "/placeholder.svg"
+                        }
+                        alt={`${getTierName(second.tierAvg)} 티어 아이콘`}
+                        width={30}
+                        height={30}
+                        className="object-contain"
+                        onError={(e) => {
+                          // 이미지 로드 실패 시 기본 이미지로 대체
+                          const target = e.target as HTMLImageElement;
+                          target.src = "/ranked-emblem/emblem-unranked.png";
+                        }}
+                      />
+                    </div>
+                  )}
+                  <span className="text-xs text-blue-400">
+                    {second && getTierName(second.tierAvg)}
+                  </span>
                 </div>
               </div>
 
@@ -84,7 +123,7 @@ export default function Podium({ data }: { data: Ranking[] }) {
               <div className="w-28 h-28 rounded-full bg-yellow-900/30 border-2 border-yellow-600 flex items-center justify-center mb-3 shadow-lg overflow-hidden">
                 {first?.univLogo ? (
                   <Image
-                    src={first.univLogo || "/placeholder.svg"}
+                    src={getSafeImageUrl(first.univLogo) || "/placeholder.svg"}
                     alt={first?.univName || "1등"}
                     width={90}
                     height={90}
@@ -99,13 +138,34 @@ export default function Podium({ data }: { data: Ranking[] }) {
             </div>
 
             {/* 포디움 */}
-            <div className="bg-gradient-to-t from-yellow-700 to-yellow-600 h-[220px] w-full rounded-t-md shadow-[inset_0_2px_6px_rgba(0,0,0,0.3)] flex flex-col items-center justify-end pb-4 border-t-2 border-yellow-500">
+            <div className="bg-gradient-to-t from-yellow-700 to-yellow-600 h-[230px] w-full rounded-t-md shadow-[inset_0_2px_6px_rgba(0,0,0,0.3)] flex flex-col items-center justify-end pb-4 border-t-2 border-yellow-500">
               <div className="text-center mb-4">
                 <div className="text-sm font-medium text-yellow-300 mb-1">
                   {first?.univName}
                 </div>
-                <div className="text-xs text-yellow-400">
-                  {first && getTierName(first.tierAvg)}
+                <div className="flex items-center justify-center gap-2">
+                  {first && (
+                    <div className="relative w-8 h-8">
+                      <Image
+                        src={
+                          getTierImagePath(getTierName(first.tierAvg)) ||
+                          "/placeholder.svg"
+                        }
+                        alt={`${getTierName(first.tierAvg)} 티어 아이콘`}
+                        width={30}
+                        height={30}
+                        className="object-contain"
+                        onError={(e) => {
+                          // 이미지 로드 실패 시 기본 이미지로 대체
+                          const target = e.target as HTMLImageElement;
+                          target.src = "/ranked-emblem/emblem-unranked.png";
+                        }}
+                      />
+                    </div>
+                  )}
+                  <span className="text-xs text-yellow-400">
+                    {first && getTierName(first.tierAvg)}
+                  </span>
                 </div>
               </div>
 
@@ -129,7 +189,7 @@ export default function Podium({ data }: { data: Ranking[] }) {
               <div className="w-22 h-22 rounded-full bg-gray-800 border-2 border-amber-700 flex items-center justify-center mb-3 shadow-lg overflow-hidden">
                 {third?.univLogo ? (
                   <Image
-                    src={third.univLogo || "/placeholder.svg"}
+                    src={getSafeImageUrl(third.univLogo) || "/placeholder.svg"}
                     alt={third?.univName || "3등"}
                     width={70}
                     height={70}
@@ -144,13 +204,34 @@ export default function Podium({ data }: { data: Ranking[] }) {
             </div>
 
             {/* 포디움 */}
-            <div className="bg-gradient-to-t from-amber-900 to-amber-800 h-[150px] w-full rounded-t-md shadow-[inset_0_2px_6px_rgba(0,0,0,0.3)] flex flex-col items-center justify-end pb-4 border-t-2 border-amber-700">
+            <div className="bg-gradient-to-t from-amber-900 to-amber-800 h-[165px] w-full rounded-t-md shadow-[inset_0_2px_6px_rgba(0,0,0,0.3)] flex flex-col items-center justify-end pb-4 border-t-2 border-amber-700">
               <div className="text-center mb-4">
                 <div className="text-sm font-medium text-amber-300 mb-1">
                   {third?.univName}
                 </div>
-                <div className="text-xs text-amber-400">
-                  {third && getTierName(third.tierAvg)}
+                <div className="flex items-center justify-center gap-2">
+                  {third && (
+                    <div className="relative w-8 h-8">
+                      <Image
+                        src={
+                          getTierImagePath(getTierName(third.tierAvg)) ||
+                          "/placeholder.svg"
+                        }
+                        alt={`${getTierName(third.tierAvg)} 티어 아이콘`}
+                        width={30}
+                        height={30}
+                        className="object-contain"
+                        onError={(e) => {
+                          // 이미지 로드 실패 시 기본 이미지로 대체
+                          const target = e.target as HTMLImageElement;
+                          target.src = "/ranked-emblem/emblem-unranked.png";
+                        }}
+                      />
+                    </div>
+                  )}
+                  <span className="text-xs text-amber-400">
+                    {third && getTierName(third.tierAvg)}
+                  </span>
                 </div>
               </div>
 

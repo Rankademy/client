@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { ChevronDown, Trophy } from "lucide-react";
-import type { Ranker, University } from "@/app/types/ranking";
+import type { University } from "@/app/types/ranking";
 
 type RankingsProps = {
   data: University[];
@@ -64,11 +64,29 @@ export default function Rankings({ data }: RankingsProps) {
     return "Unranked";
   };
 
+  // 티어 이미지 경로 가져오기
+  const getTierImagePath = (tierName: string) => {
+    // 티어 이름에서 숫자 제거 (예: "Diamond 4" -> "diamond")
+    const baseTier = tierName.split(" ")[0].toLowerCase();
+    return `/ranked-emblem/Rank=${baseTier}.png`;
+  };
+
   // LP 계산 함수
   const getLP = (tierAvg: number) => {
     const tier = Math.floor(tierAvg / 100) * 100;
     const lp = tierAvg - tier;
     return `${lp}LP`;
+  };
+
+  // 안전한 이미지 URL 생성 함수
+  const getSafeImageUrl = (url: string | undefined) => {
+    if (!url) return "/abstract-profile.png";
+
+    // 외부 URL인 경우 그대로 반환
+    if (url.startsWith("http")) return url;
+
+    // 내부 경로인 경우 placeholder로 대체
+    return url || "/abstract-profile.png";
   };
 
   return (
@@ -84,86 +102,102 @@ export default function Rankings({ data }: RankingsProps) {
             <div className="col-span-2 text-center">승리 수</div>
           </div>
 
-          {visibleData.map((item, index) => (
-            <div
-              key={index}
-              style={{
-                backgroundColor:
-                  index % 2 === 0
-                    ? "rgba(14, 165, 233, 0.2)"
-                    : "rgba(14, 165, 233, 0.1)",
-              }}
-              className="grid grid-cols-12 p-3 text-sm items-center"
-            >
-              <div className="col-span-1 text-center font-bold">
-                {item.univId}
-              </div>
-              <div className="col-span-2 flex items-center gap-2">
-                {item.univLogo ? (
-                  <Image
-                    src={item.univLogo || "/placeholder.svg"}
-                    alt={item.univName}
-                    width={24}
-                    height={24}
-                    className="rounded-full"
-                  />
-                ) : (
-                  <div className="w-6 h-6 rounded-full bg-gray-700"></div>
-                )}
-                <span className="truncate">{item.univName}</span>
-              </div>
-              <div className="col-span-2 flex flex-col items-center">
-                <div className="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center">
-                  <span className="text-xs font-bold">
-                    {getTierName(item.tierAvg).substring(0, 1)}
-                  </span>
+          {visibleData.map((item, index) => {
+            const tierName = getTierName(item.tierAvg);
+            const tierImagePath = getTierImagePath(tierName);
+
+            return (
+              <div
+                key={index}
+                style={{
+                  backgroundColor:
+                    index % 2 === 0
+                      ? "rgba(14, 165, 233, 0.2)"
+                      : "rgba(14, 165, 233, 0.1)",
+                }}
+                className="grid grid-cols-12 p-3 text-sm items-center"
+              >
+                <div className="col-span-1 text-center font-bold">
+                  {item.univId}
                 </div>
-                <div className="text-xs text-gray-300">
-                  {getTierName(item.tierAvg)}
-                </div>
-                <div className="text-xs text-blue-300">
-                  {getLP(item.tierAvg)}
-                </div>
-              </div>
-              <div className="col-span-5 flex items-center justify-center">
-                <div className="flex items-center gap-3">
-                  {item.ranker ? (
-                    <>
-                      <div className="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center overflow-hidden">
-                        {item.ranker.icon ? (
-                          <Image
-                            src={item.ranker.icon || "/placeholder.svg"}
-                            alt={item.ranker.username}
-                            width={40}
-                            height={40}
-                            className="object-cover"
-                          />
-                        ) : (
-                          <div className="w-full h-full bg-gray-600"></div>
-                        )}
-                      </div>
-                      <div>
-                        <p className="font-medium">{item.ranker.username}</p>
-                      </div>
-                    </>
+                <div className="col-span-2 flex items-center gap-2">
+                  {item.univLogo ? (
+                    <Image
+                      src={getSafeImageUrl(item.univLogo) || "/placeholder.svg"}
+                      alt={item.univName}
+                      width={24}
+                      height={24}
+                      className="rounded-full"
+                    />
                   ) : (
-                    <p className="text-gray-400">대표 랭커 없음</p>
+                    <div className="w-6 h-6 rounded-full bg-gray-700"></div>
                   )}
+                  <span className="truncate">{item.univName}</span>
                 </div>
-              </div>
-              <div className=" col-span-2">
-                <div className="flex flex-col gap-1">
-                  <div className="flex items-center justify-center gap-2 text-yellow-500">
-                    <Trophy size={16} />
-                    <span className="font-bold">{item.winCnt}승</span>
+                <div className="col-span-2 flex flex-col items-center">
+                  {/* 티어 아이콘 직접 사용 */}
+                  <div className="relative w-10 h-10">
+                    <Image
+                      src={tierImagePath || "/placeholder.svg"}
+                      alt={`${tierName} 티어 아이콘`}
+                      width={40}
+                      height={40}
+                      className="object-contain"
+                      onError={(e) => {
+                        // 이미지 로드 실패 시 기본 이미지로 대체
+                        const target = e.target as HTMLImageElement;
+                        target.src = "/ranked-emblem/emblem-unranked.png";
+                      }}
+                    />
                   </div>
-                  <p className=" flex items-center justify-center text-xs text-gray-400">
-                    총 {item.totalUserCnt}명의 유저
-                  </p>
+                  <div className="text-xs text-gray-300 mt-1">{tierName}</div>
+                  <div className="text-xs text-blue-300">
+                    {getLP(item.tierAvg)}
+                  </div>
+                </div>
+                <div className="col-span-5 flex items-center justify-center">
+                  <div className="flex items-center gap-3">
+                    {item.ranker ? (
+                      <>
+                        <div className="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center overflow-hidden">
+                          {item.ranker.icon ? (
+                            <Image
+                              src={
+                                getSafeImageUrl(item.ranker.icon) ||
+                                "/placeholder.svg"
+                              }
+                              alt={item.ranker.username}
+                              width={40}
+                              height={40}
+                              className="object-cover"
+                            />
+                          ) : (
+                            <div className="w-full h-full bg-gray-600"></div>
+                          )}
+                        </div>
+                        <div>
+                          <p className="font-medium">{item.ranker.username}</p>
+                        </div>
+                      </>
+                    ) : (
+                      <p className="text-gray-400">대표 랭커 없음</p>
+                    )}
+                  </div>
+                </div>
+                <div className=" col-span-2">
+                  <div className="flex flex-col gap-1">
+                    <div className="flex items-center justify-center gap-2 text-yellow-500">
+                      <Trophy size={16} />
+                      <span className="font-bold">{item.winCnt}승</span>
+                    </div>
+                    <p className="flex items-center justify-center text-xs text-gray-400">
+                      총 {item.totalUserCnt}명의 유저
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
 
           {/* 더보기 버튼 */}
           {hasMoreData && (
