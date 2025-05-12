@@ -4,15 +4,15 @@ import type React from "react";
 
 import { useState, useEffect } from "react";
 import type { UserData } from "../types/user";
-import LoadingState from "./components/LoadingState";
-import ProfileHeader from "./components/ProfileHeader";
-import ProfileTitle from "./components/ProfileTitle";
-import BasicInfoSection from "./components/BasicInfoSection";
-import SchoolInfoSection from "./components/SchoolInfoSection";
-import GameInfoSection from "./components/GameInfoSection";
-import BioSection from "./components/BioSection";
-import GroupsSection from "./components/GroupsSection";
-import SaveButton from "./components/SaveButton";
+import LoadingState from "../components/me/LoadingState";
+import ProfileHeader from "../components/me/ProfileHeader";
+import ProfileTitle from "../components/me/ProfileTitle";
+import BasicInfoSection from "../components/me/BasicInfoSection";
+import SchoolInfoSection from "../components/me/SchoolInfoSection";
+import GameInfoSection from "../components/me/GameInfoSection";
+import BioSection from "../components/me/BioSection";
+import GroupsSection from "../components/me/GroupsSection";
+import SaveButton from "../components/me/SaveButton";
 
 // 임시 데이터
 const mockUserData: UserData = {

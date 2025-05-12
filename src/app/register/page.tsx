@@ -1,8 +1,8 @@
 "use client";
 
-import SignupHeader from "./components/SignupHeader";
-import SignupForm from "./components/SignupForm";
-import LoginPrompt from "./components/LoginPrompt";
+import SignupHeader from "../components/register/SignupHeader";
+import SignupForm from "../components/register/SignupForm";
+import LoginPrompt from "../components/register/LoginPrompt";
 
 export default function RegisterPage() {
   return (

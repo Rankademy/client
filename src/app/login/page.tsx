@@ -1,9 +1,9 @@
 "use client";
 
-import LoginHeader from "./components/LoginHeader";
-import LoginForm from "./components/LoginForm";
-import SocialLoginButtons from "./components/SocialLoginButtons";
-import SignupPrompt from "./components/SignupPrompt";
+import LoginHeader from "../components/login/LoginHeader";
+import LoginForm from "../components/login/LoginForm";
+import SocialLoginButtons from "../components/login/SocialLoginButtons";
+import SignupPrompt from "../components/login/SignupPrompt";
 
 export default function LoginPage() {
   return (
