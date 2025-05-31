@@ -1,366 +1,361 @@
-export interface Champion {
-  id: string;
-  name: string;
-  icon: string;
-}
-
-export interface Match {
-  result: "win" | "loss";
-  champion: Champion;
-}
-
-export interface Player {
-  id: string;
-  rank: number;
-  name: string;
-  nickname: string;
+export interface TierDTO {
   tier: string;
-  tierIcon: string;
-  lp: number;
+  rank: string;
+  leaguePoints: number;
+}
+
+export interface PlayerData {
+  puuid: number;
+  summonerName: string;
+  summonerTag: string;
+  summonerIcon: string;
+  tier: TierDTO;
   winRate: number;
-  matches: Match[];
-  mostPlayed: Champion[];
-  profileImage: string;
-  title: string;
-  department: string;
+  topMosts: string[];
+  mainPosition: string;
+  admissionYear: string;
+  major: string;
 }
 
-export interface Univ {
-  id: string;
-  name: string;
-  logo: string;
-  players: Player[];
+// 서울과학기술대학교 데이터
+export const seoulTechData: PlayerData[] = [
+  {
+    puuid: 1,
+    summonerName: "TechMaster",
+    summonerTag: "KR1",
+    summonerIcon: "29",
+    tier: {
+      tier: "CHALLENGER",
+      rank: "I",
+      leaguePoints: 1024,
+    },
+    winRate: 0.68,
+    topMosts: ["Leblanc", "Ahri", "Zed"],
+    mainPosition: "MID",
+    admissionYear: "19학번",
+    major: "컴퓨터공학과",
+  },
+  {
+    puuid: 2,
+    summonerName: "SeoulTechJG",
+    summonerTag: "KR2",
+    summonerIcon: "12",
+    tier: {
+      tier: "GRANDMASTER",
+      rank: "I",
+      leaguePoints: 876,
+    },
+    winRate: 0.65,
+    topMosts: ["Lee Sin", "Graves", "Viego"],
+    mainPosition: "JG",
+    admissionYear: "20학번",
+    major: "전자공학과",
+  },
+  {
+    puuid: 3,
+    summonerName: "기술대왕",
+    summonerTag: "KR3",
+    summonerIcon: "5",
+    tier: {
+      tier: "MASTER",
+      rank: "I",
+      leaguePoints: 789,
+    },
+    winRate: 0.62,
+    topMosts: ["Azir", "Viktor", "Orianna"],
+    mainPosition: "MID",
+    admissionYear: "20학번",
+    major: "정보통신공학과",
+  },
+  {
+    puuid: 4,
+    summonerName: "STU Support",
+    summonerTag: "KR4",
+    summonerIcon: "18",
+    tier: {
+      tier: "DIAMOND",
+      rank: "I",
+      leaguePoints: 75,
+    },
+    winRate: 0.59,
+    topMosts: ["Thresh", "Nautilus", "Leona"],
+    mainPosition: "SUP",
+    admissionYear: "21학번",
+    major: "소프트웨어학과",
+  },
+  {
+    puuid: 5,
+    summonerName: "과기대ADC",
+    summonerTag: "KR5",
+    summonerIcon: "7",
+    tier: {
+      tier: "DIAMOND",
+      rank: "II",
+      leaguePoints: 56,
+    },
+    winRate: 0.57,
+    topMosts: ["Jinx", "Ezreal", "Kai'Sa"],
+    mainPosition: "ADC",
+    admissionYear: "19학번",
+    major: "경영학과",
+  },
+  {
+    puuid: 6,
+    summonerName: "TechTop",
+    summonerTag: "KR6",
+    summonerIcon: "25",
+    tier: {
+      tier: "PLATINUM",
+      rank: "I",
+      leaguePoints: 89,
+    },
+    winRate: 0.55,
+    topMosts: ["Aatrox", "Jax", "Gnar"],
+    mainPosition: "TOP",
+    admissionYear: "22학번",
+    major: "기계공학과",
+  },
+  {
+    puuid: 7,
+    summonerName: "서울과기대생",
+    summonerTag: "KR7",
+    summonerIcon: "10",
+    tier: {
+      tier: "PLATINUM",
+      rank: "II",
+      leaguePoints: 45,
+    },
+    winRate: 0.53,
+    topMosts: ["Caitlyn", "Aphelios", "Varus"],
+    mainPosition: "ADC",
+    admissionYear: "21학번",
+    major: "산업공학과",
+  },
+  {
+    puuid: 8,
+    summonerName: "AI학과정글",
+    summonerTag: "KR8",
+    summonerIcon: "15",
+    tier: {
+      tier: "GOLD",
+      rank: "I",
+      leaguePoints: 78,
+    },
+    winRate: 0.51,
+    topMosts: ["Jarvan IV", "Xin Zhao", "Trundle"],
+    mainPosition: "JG",
+    admissionYear: "22학번",
+    major: "인공지능학과",
+  },
+  {
+    puuid: 9,
+    summonerName: "데사과학생",
+    summonerTag: "KR9",
+    summonerIcon: "22",
+    tier: {
+      tier: "GOLD",
+      rank: "II",
+      leaguePoints: 34,
+    },
+    winRate: 0.49,
+    topMosts: ["Nidalee", "Elise", "Olaf"],
+    mainPosition: "JG",
+    admissionYear: "20학번",
+    major: "데이터사이언스학과",
+  },
+  {
+    puuid: 10,
+    summonerName: "SeoulTech10",
+    summonerTag: "KR10",
+    summonerIcon: "9",
+    tier: {
+      tier: "SILVER",
+      rank: "I",
+      leaguePoints: 67,
+    },
+    winRate: 0.47,
+    topMosts: ["Jhin", "Ashe", "Xayah"],
+    mainPosition: "ADC",
+    admissionYear: "19학번",
+    major: "건축학과",
+  },
+];
+
+// 서울대학교 데이터
+export const snuData: PlayerData[] = [
+  {
+    puuid: 11,
+    summonerName: "SNU Emperor",
+    summonerTag: "SNU1",
+    summonerIcon: "28",
+    tier: {
+      tier: "CHALLENGER",
+      rank: "I",
+      leaguePoints: 1156,
+    },
+    winRate: 0.72,
+    topMosts: ["Faker", "Yasuo", "Azir"],
+    mainPosition: "MID",
+    admissionYear: "18학번",
+    major: "컴퓨터공학부",
+  },
+  {
+    puuid: 12,
+    summonerName: "관악산호랑이",
+    summonerTag: "SNU2",
+    summonerIcon: "14",
+    tier: {
+      tier: "GRANDMASTER",
+      rank: "I",
+      leaguePoints: 945,
+    },
+    winRate: 0.69,
+    topMosts: ["Graves", "Kindred", "Nidalee"],
+    mainPosition: "JG",
+    admissionYear: "19학번",
+    major: "경영학과",
+  },
+  {
+    puuid: 13,
+    summonerName: "Seoul Nat Univ",
+    summonerTag: "SNU3",
+    summonerIcon: "3",
+    tier: {
+      tier: "GRANDMASTER",
+      rank: "II",
+      leaguePoints: 823,
+    },
+    winRate: 0.66,
+    topMosts: ["Syndra", "Orianna", "Cassiopeia"],
+    mainPosition: "MID",
+    admissionYear: "20학번",
+    major: "수학과",
+  },
+  {
+    puuid: 14,
+    summonerName: "SNU Guardian",
+    summonerTag: "SNU4",
+    summonerIcon: "21",
+    tier: {
+      tier: "MASTER",
+      rank: "I",
+      leaguePoints: 234,
+    },
+    winRate: 0.63,
+    topMosts: ["Thresh", "Pyke", "Bard"],
+    mainPosition: "SUP",
+    admissionYear: "21학번",
+    major: "심리학과",
+  },
+  {
+    puuid: 15,
+    summonerName: "관악구ADC",
+    summonerTag: "SNU5",
+    summonerIcon: "11",
+    tier: {
+      tier: "MASTER",
+      rank: "II",
+      leaguePoints: 156,
+    },
+    winRate: 0.61,
+    topMosts: ["Aphelios", "Jinx", "Caitlyn"],
+    mainPosition: "ADC",
+    admissionYear: "19학번",
+    major: "물리학과",
+  },
+  {
+    puuid: 16,
+    summonerName: "SNU TopLaner",
+    summonerTag: "SNU6",
+    summonerIcon: "26",
+    tier: {
+      tier: "DIAMOND",
+      rank: "I",
+      leaguePoints: 89,
+    },
+    winRate: 0.58,
+    topMosts: ["Camille", "Fiora", "Riven"],
+    mainPosition: "TOP",
+    admissionYear: "22학번",
+    major: "기계공학부",
+  },
+  {
+    puuid: 17,
+    summonerName: "서울대생",
+    summonerTag: "SNU7",
+    summonerIcon: "16",
+    tier: {
+      tier: "DIAMOND",
+      rank: "III",
+      leaguePoints: 23,
+    },
+    winRate: 0.56,
+    topMosts: ["Lucian", "Vayne", "Draven"],
+    mainPosition: "ADC",
+    admissionYear: "21학번",
+    major: "화학과",
+  },
+  {
+    puuid: 18,
+    summonerName: "관악산정글러",
+    summonerTag: "SNU8",
+    summonerIcon: "19",
+    tier: {
+      tier: "PLATINUM",
+      rank: "I",
+      leaguePoints: 67,
+    },
+    winRate: 0.54,
+    topMosts: ["Hecarim", "Kha'Zix", "Evelynn"],
+    mainPosition: "JG",
+    admissionYear: "22학번",
+    major: "생명과학부",
+  },
+  {
+    puuid: 19,
+    summonerName: "SNU Student",
+    summonerTag: "SNU9",
+    summonerIcon: "24",
+    tier: {
+      tier: "PLATINUM",
+      rank: "III",
+      leaguePoints: 12,
+    },
+    winRate: 0.52,
+    topMosts: ["Lulu", "Soraka", "Janna"],
+    mainPosition: "SUP",
+    admissionYear: "20학번",
+    major: "영어영문학과",
+  },
+  {
+    puuid: 20,
+    summonerName: "관악구거주자",
+    summonerTag: "SNU10",
+    summonerIcon: "8",
+    tier: {
+      tier: "GOLD",
+      rank: "I",
+      leaguePoints: 45,
+    },
+    winRate: 0.49,
+    topMosts: ["Malphite", "Shen", "Ornn"],
+    mainPosition: "TOP",
+    admissionYear: "19학번",
+    major: "사회학과",
+  },
+];
+
+// 학교별 데이터를 가져오는 함수
+export function getUniversityData(univName: string): PlayerData[] | null {
+  switch (univName) {
+    case "서울과학기술대학교":
+      return seoulTechData;
+    case "서울대학교":
+      return snuData;
+    default:
+      return null; // 데이터가 없는 경우 null 반환
+  }
 }
 
-export const mockUnivData: Record<string, Univ> = {
-  "seoul-tech": {
-    id: "seoul-tech",
-    name: "서울과학기술대학교",
-    logo: "/generic-Univ-logo.png",
-    players: [
-      {
-        id: "1",
-        rank: 1,
-        name: "나카",
-        nickname: "#Luffy",
-        tier: "Challenger",
-        tierIcon: "/tier-challenger.png",
-        lp: 785,
-        winRate: 66.4,
-        matches: [
-          {
-            result: "win",
-            champion: { id: "1", name: "Yasuo", icon: "/champion-1.png" },
-          },
-          {
-            result: "loss",
-            champion: { id: "2", name: "Zed", icon: "/champion-2.png" },
-          },
-          {
-            result: "win",
-            champion: { id: "3", name: "Lee Sin", icon: "/champion-3.png" },
-          },
-          {
-            result: "win",
-            champion: { id: "1", name: "Yasuo", icon: "/champion-1.png" },
-          },
-          {
-            result: "loss",
-            champion: { id: "4", name: "Ahri", icon: "/champion-4.png" },
-          },
-          {
-            result: "win",
-            champion: { id: "5", name: "Jinx", icon: "/champion-5.png" },
-          },
-        ],
-        mostPlayed: [
-          { id: "1", name: "Yasuo", icon: "/champion-1.png" },
-          { id: "3", name: "Lee Sin", icon: "/champion-3.png" },
-          { id: "5", name: "Jinx", icon: "/champion-5.png" },
-        ],
-        profileImage: "/abstract-profile-silhouette.png",
-        title: "탑차이",
-        department: "컴퓨터공학과",
-      },
-      {
-        id: "2",
-        rank: 2,
-        name: "루피",
-        nickname: "#Nika",
-        tier: "Grand Master",
-        tierIcon: "/tier-grandmaster.png",
-        lp: 690,
-        winRate: 67.3,
-        matches: [
-          {
-            result: "loss",
-            champion: { id: "6", name: "Darius", icon: "/champion-6.png" },
-          },
-          {
-            result: "loss",
-            champion: { id: "7", name: "Garen", icon: "/champion-7.png" },
-          },
-          {
-            result: "win",
-            champion: { id: "8", name: "Lux", icon: "/champion-8.png" },
-          },
-          {
-            result: "win",
-            champion: { id: "9", name: "Ezreal", icon: "/champion-9.png" },
-          },
-          {
-            result: "loss",
-            champion: { id: "6", name: "Darius", icon: "/champion-6.png" },
-          },
-          {
-            result: "win",
-            champion: { id: "8", name: "Lux", icon: "/champion-8.png" },
-          },
-        ],
-        mostPlayed: [
-          { id: "6", name: "Darius", icon: "/champion-6.png" },
-          { id: "8", name: "Lux", icon: "/champion-8.png" },
-          { id: "9", name: "Ezreal", icon: "/champion-9.png" },
-        ],
-        profileImage: "/profile-2.png",
-        title: "CS왕",
-        department: "산업디자인학과",
-      },
-      {
-        id: "3",
-        rank: 3,
-        name: "나미",
-        nickname: "#Nami",
-        tier: "Grand Master",
-        tierIcon: "/tier-grandmaster.png",
-        lp: 770,
-        winRate: 68.4,
-        matches: [
-          {
-            result: "win",
-            champion: { id: "10", name: "Soraka", icon: "/champion-10.png" },
-          },
-          {
-            result: "loss",
-            champion: { id: "11", name: "Janna", icon: "/champion-11.png" },
-          },
-          {
-            result: "loss",
-            champion: { id: "12", name: "Lulu", icon: "/champion-12.png" },
-          },
-          {
-            result: "loss",
-            champion: { id: "10", name: "Soraka", icon: "/champion-10.png" },
-          },
-          {
-            result: "loss",
-            champion: { id: "11", name: "Janna", icon: "/champion-11.png" },
-          },
-          {
-            result: "win",
-            champion: { id: "12", name: "Lulu", icon: "/champion-12.png" },
-          },
-        ],
-        mostPlayed: [
-          { id: "10", name: "Soraka", icon: "/champion-10.png" },
-          { id: "11", name: "Janna", icon: "/champion-11.png" },
-          { id: "12", name: "Lulu", icon: "/champion-12.png" },
-        ],
-        profileImage: "/abstract-profile-3.png",
-        title: "서폿 장인",
-        department: "경영학과",
-      },
-      {
-        id: "4",
-        rank: 4,
-        name: "조로",
-        nickname: "#Zoro",
-        tier: "Master",
-        tierIcon: "/tier-master.png",
-        lp: 250,
-        winRate: 61.4,
-        matches: [
-          {
-            result: "win",
-            champion: { id: "13", name: "Fiora", icon: "/champion-13.png" },
-          },
-          {
-            result: "loss",
-            champion: { id: "14", name: "Riven", icon: "/champion-14.png" },
-          },
-          {
-            result: "win",
-            champion: { id: "15", name: "Irelia", icon: "/champion-15.png" },
-          },
-          {
-            result: "win",
-            champion: { id: "13", name: "Fiora", icon: "/champion-13.png" },
-          },
-          {
-            result: "win",
-            champion: { id: "14", name: "Riven", icon: "/champion-14.png" },
-          },
-          {
-            result: "win",
-            champion: { id: "15", name: "Irelia", icon: "/champion-15.png" },
-          },
-        ],
-        mostPlayed: [
-          { id: "13", name: "Fiora", icon: "/champion-13.png" },
-          { id: "14", name: "Riven", icon: "/champion-14.png" },
-          { id: "15", name: "Irelia", icon: "/champion-15.png" },
-        ],
-        profileImage: "/profile-4.png",
-        title: "솔로킹",
-        department: "기계공학과",
-      },
-      {
-        id: "5",
-        rank: 5,
-        name: "상디",
-        nickname: "#Sanji",
-        tier: "Master",
-        tierIcon: "/tier-master.png",
-        lp: 150,
-        winRate: 57.4,
-        matches: [
-          {
-            result: "win",
-            champion: { id: "16", name: "Thresh", icon: "/champion-16.png" },
-          },
-          {
-            result: "loss",
-            champion: {
-              id: "17",
-              name: "Blitzcrank",
-              icon: "/champion-17.png",
-            },
-          },
-          {
-            result: "win",
-            champion: { id: "18", name: "Leona", icon: "/champion-18.png" },
-          },
-          {
-            result: "win",
-            champion: { id: "16", name: "Thresh", icon: "/champion-16.png" },
-          },
-          {
-            result: "loss",
-            champion: {
-              id: "17",
-              name: "Blitzcrank",
-              icon: "/champion-17.png",
-            },
-          },
-          {
-            result: "win",
-            champion: { id: "18", name: "Leona", icon: "/champion-18.png" },
-          },
-        ],
-        mostPlayed: [
-          { id: "16", name: "Thresh", icon: "/champion-16.png" },
-          { id: "17", name: "Blitzcrank", icon: "/champion-17.png" },
-          { id: "18", name: "Leona", icon: "/champion-18.png" },
-        ],
-        profileImage: "/profile-5.png",
-        title: "훅 장인",
-        department: "전자공학과",
-      },
-      {
-        id: "6",
-        rank: 6,
-        name: "초파",
-        nickname: "#Chopper",
-        tier: "Master",
-        tierIcon: "/tier-master.png",
-        lp: 140,
-        winRate: 51.4,
-        matches: [
-          {
-            result: "loss",
-            champion: { id: "19", name: "Teemo", icon: "/champion-19.png" },
-          },
-          {
-            result: "win",
-            champion: { id: "20", name: "Yuumi", icon: "/champion-20.png" },
-          },
-          {
-            result: "loss",
-            champion: { id: "21", name: "Veigar", icon: "/champion-21.png" },
-          },
-          {
-            result: "win",
-            champion: { id: "19", name: "Teemo", icon: "/champion-19.png" },
-          },
-          {
-            result: "win",
-            champion: { id: "20", name: "Yuumi", icon: "/champion-20.png" },
-          },
-          {
-            result: "loss",
-            champion: { id: "21", name: "Veigar", icon: "/champion-21.png" },
-          },
-        ],
-        mostPlayed: [
-          { id: "19", name: "Teemo", icon: "/champion-19.png" },
-          { id: "20", name: "Yuumi", icon: "/champion-20.png" },
-          { id: "21", name: "Veigar", icon: "/champion-21.png" },
-        ],
-        profileImage: "/diverse-anime-characters.png",
-        title: "정글 차이",
-        department: "소프트웨어공학과",
-      },
-    ],
-  },
-  snu: {
-    id: "snu",
-    name: "서울대학교",
-    logo: "/placeholder.svg?key=ec6oq",
-    players: [
-      {
-        id: "7",
-        rank: 1,
-        name: "김철수",
-        nickname: "#SNU_ACE",
-        tier: "Challenger",
-        tierIcon: "/tier-challenger.png",
-        lp: 890,
-        winRate: 72.1,
-        matches: [
-          {
-            result: "win",
-            champion: { id: "1", name: "Yasuo", icon: "/champion-1.png" },
-          },
-          {
-            result: "win",
-            champion: { id: "2", name: "Zed", icon: "/champion-2.png" },
-          },
-          {
-            result: "win",
-            champion: { id: "3", name: "Lee Sin", icon: "/champion-3.png" },
-          },
-          {
-            result: "loss",
-            champion: { id: "1", name: "Yasuo", icon: "/champion-1.png" },
-          },
-          {
-            result: "win",
-            champion: { id: "4", name: "Ahri", icon: "/champion-4.png" },
-          },
-          {
-            result: "win",
-            champion: { id: "5", name: "Jinx", icon: "/champion-5.png" },
-          },
-        ],
-        mostPlayed: [
-          { id: "1", name: "Yasuo", icon: "/champion-1.png" },
-          { id: "2", name: "Zed", icon: "/champion-2.png" },
-          { id: "3", name: "Lee Sin", icon: "/champion-3.png" },
-        ],
-        profileImage: "/placeholder.svg?key=snu1",
-        title: "미드 황제",
-        department: "컴퓨터공학부",
-      },
-    ],
-  },
-};
+// 기존 mockData는 서울과학기술대학교 데이터로 유지
+export const mockData = seoulTechData;

@@ -6,6 +6,56 @@ import { ChevronDown, Trophy } from "lucide-react";
 import type { University } from "@/app/types/ranking";
 import { useRouter } from "next/navigation";
 
+// 대학교 로고를 처리하는 컴포넌트
+function UniversityLogo({
+  universityName,
+  size = 24,
+  className = "",
+}: {
+  universityName: string;
+  size?: number;
+  className?: string;
+}) {
+  const [currentExtensionIndex, setCurrentExtensionIndex] = useState(0);
+  const [hasError, setHasError] = useState(false);
+
+  const imageExtensions = ["png", "jpg", "jpeg", "webp", "svg", "gif"];
+  const currentExtension = imageExtensions[currentExtensionIndex];
+  const logoPath = `/univ-emblem/${universityName}.${currentExtension}`;
+
+  const handleImageError = () => {
+    if (currentExtensionIndex < imageExtensions.length - 1) {
+      // 다음 확장자로 시도
+      setCurrentExtensionIndex((prev) => prev + 1);
+    } else {
+      // 모든 확장자를 시도했지만 실패
+      setHasError(true);
+    }
+  };
+
+  if (hasError) {
+    return (
+      <div
+        className={`bg-gray-700 rounded-full flex items-center justify-center text-xs font-bold ${className}`}
+        style={{ width: size, height: size }}
+      >
+        {universityName.charAt(0)}
+      </div>
+    );
+  }
+
+  return (
+    <Image
+      src={logoPath || "/placeholder.svg"}
+      alt={`${universityName} 로고`}
+      width={size}
+      height={size}
+      className={`rounded-full object-cover ${className}`}
+      onError={handleImageError}
+    />
+  );
+}
+
 type RankingsProps = {
   data: University[];
 };
@@ -81,7 +131,7 @@ export default function Rankings({ data }: RankingsProps) {
     return `${lp}LP`;
   };
 
-  // 안전한 이미지 URL 생성 함수
+  // 안전한 이미지 URL 생성 함수 (랭커 아이콘용)
   const getSafeImageUrl = (url: string | undefined) => {
     if (!url) return "/abstract-profile.png";
 
@@ -128,20 +178,10 @@ export default function Rankings({ data }: RankingsProps) {
                   {item.univId}
                 </div>
                 <div
-                  className="col-span-2 flex items-center gap-2"
+                  className="col-span-2 flex items-center gap-2 cursor-pointer hover:text-blue-400 transition-colors"
                   onClick={() => handleUnivClick(item.univName)}
                 >
-                  {item.univLogo ? (
-                    <Image
-                      src={getSafeImageUrl(item.univLogo) || "/placeholder.svg"}
-                      alt={item.univName}
-                      width={24}
-                      height={24}
-                      className="rounded-full"
-                    />
-                  ) : (
-                    <div className="w-6 h-6 rounded-full bg-gray-700"></div>
-                  )}
+                  <UniversityLogo universityName={item.univName} size={24} />
                   <span className="truncate">{item.univName}</span>
                 </div>
                 <div className="col-span-2 flex flex-col items-center">
