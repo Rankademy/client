@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { Trophy } from "lucide-react";
 import type { University as Ranking } from "@/app/types/ranking";
+import { useRouter } from "next/navigation";
 
 export default function Podium({ data }: { data: Ranking[] }) {
   const sortedTop3 = data.sort((a, b) => a.univId - b.univId);
@@ -40,6 +41,12 @@ export default function Podium({ data }: { data: Ranking[] }) {
     return url || "/university-campus.png";
   };
 
+  const router = useRouter();
+
+  const handleUnivClick = (univName: string) => {
+    router.push(`/univRanking/${univName}`);
+  };
+
   return (
     <section className="container mx-auto mt-12 mb-16">
       <h2 className="text-2xl font-bold text-center mb-8">TOP 3</h2>
@@ -54,7 +61,10 @@ export default function Podium({ data }: { data: Ranking[] }) {
           <div className="relative w-1/3 flex flex-col items-center px-2">
             {/* 로고와 대학명 */}
             <div className="absolute -top-28 flex flex-col items-center">
-              <div className="w-24 h-24 rounded-full bg-gray-800 border-2 border-gray-600 flex items-center justify-center mb-3 shadow-lg overflow-hidden">
+              <div
+                className="w-24 h-24 rounded-full bg-gray-800 border-2 border-gray-600 flex items-center justify-center mb-3 shadow-lg overflow-hidden"
+                onClick={() => handleUnivClick(second!.univName)}
+              >
                 {second?.univLogo ? (
                   <Image
                     src={getSafeImageUrl(second.univLogo) || "/placeholder.svg"}
@@ -74,7 +84,10 @@ export default function Podium({ data }: { data: Ranking[] }) {
             {/* 포디움 */}
             <div className="bg-gradient-to-t from-gray-700 to-gray-600 h-[190px] w-full rounded-t-md shadow-[inset_0_2px_6px_rgba(0,0,0,0.3)] flex flex-col items-center justify-end pb-4 border-t-2 border-gray-500">
               <div className="text-center mb-4">
-                <div className="text-sm font-medium text-gray-300 mb-1">
+                <div
+                  className="text-sm font-medium text-gray-300 mb-1"
+                  onClick={() => handleUnivClick(second!.univName)}
+                >
                   {second?.univName}
                 </div>
                 <div className="flex items-center justify-center gap-2">
@@ -120,7 +133,10 @@ export default function Podium({ data }: { data: Ranking[] }) {
           <div className="relative w-1/3 flex flex-col items-center z-10 px-2">
             {/* 로고 */}
             <div className="absolute -top-32 flex flex-col items-center">
-              <div className="w-28 h-28 rounded-full bg-yellow-900/30 border-2 border-yellow-600 flex items-center justify-center mb-3 shadow-lg overflow-hidden">
+              <div
+                className="w-28 h-28 rounded-full bg-yellow-900/30 border-2 border-yellow-600 flex items-center justify-center mb-3 shadow-lg overflow-hidden"
+                onClick={() => handleUnivClick(first!.univName)}
+              >
                 {first?.univLogo ? (
                   <Image
                     src={getSafeImageUrl(first.univLogo) || "/placeholder.svg"}
@@ -140,7 +156,10 @@ export default function Podium({ data }: { data: Ranking[] }) {
             {/* 포디움 */}
             <div className="bg-gradient-to-t from-yellow-700 to-yellow-600 h-[230px] w-full rounded-t-md shadow-[inset_0_2px_6px_rgba(0,0,0,0.3)] flex flex-col items-center justify-end pb-4 border-t-2 border-yellow-500">
               <div className="text-center mb-4">
-                <div className="text-sm font-medium text-yellow-300 mb-1">
+                <div
+                  className="text-sm font-medium text-yellow-300 mb-1"
+                  onClick={() => handleUnivClick(first!.univName)}
+                >
                   {first?.univName}
                 </div>
                 <div className="flex items-center justify-center gap-2">
@@ -186,11 +205,14 @@ export default function Podium({ data }: { data: Ranking[] }) {
           <div className="relative w-1/3 flex flex-col items-center px-2">
             {/* 로고 */}
             <div className="absolute -top-24 flex flex-col items-center">
-              <div className="w-22 h-22 rounded-full bg-gray-800 border-2 border-amber-700 flex items-center justify-center mb-3 shadow-lg overflow-hidden">
+              <div
+                className="w-22 h-22 rounded-full bg-gray-800 border-2 border-amber-700 flex items-center justify-center mb-3 shadow-lg overflow-hidden"
+                onClick={() => handleUnivClick(third!.univName)}
+              >
                 {third?.univLogo ? (
                   <Image
                     src={getSafeImageUrl(third.univLogo) || "/placeholder.svg"}
-                    alt={third?.univName || "3등"}
+                    alt={third!.univName || "3등"}
                     width={70}
                     height={70}
                     className="rounded-full object-cover"
@@ -206,7 +228,10 @@ export default function Podium({ data }: { data: Ranking[] }) {
             {/* 포디움 */}
             <div className="bg-gradient-to-t from-amber-900 to-amber-800 h-[165px] w-full rounded-t-md shadow-[inset_0_2px_6px_rgba(0,0,0,0.3)] flex flex-col items-center justify-end pb-4 border-t-2 border-amber-700">
               <div className="text-center mb-4">
-                <div className="text-sm font-medium text-amber-300 mb-1">
+                <div
+                  className="text-sm font-medium text-amber-300 mb-1"
+                  onClick={() => handleUnivClick(third!.univName)}
+                >
                   {third?.univName}
                 </div>
                 <div className="flex items-center justify-center gap-2">

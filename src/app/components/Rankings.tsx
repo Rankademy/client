@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { ChevronDown, Trophy } from "lucide-react";
 import type { University } from "@/app/types/ranking";
+import { useRouter } from "next/navigation";
 
 type RankingsProps = {
   data: University[];
@@ -26,6 +27,8 @@ export default function Rankings({ data }: RankingsProps) {
 
   // 더 표시할 데이터가 있는지 확인
   const hasMoreData = visibleCount < rankingsData.length;
+
+  const router = useRouter();
 
   // 티어 이름 변환 함수
   const getTierName = (tierAvg: number) => {
@@ -89,6 +92,10 @@ export default function Rankings({ data }: RankingsProps) {
     return url || "/abstract-profile.png";
   };
 
+  const handleUnivClick = (univName: string) => {
+    router.push(`/univRanking/${univName}`);
+  };
+
   return (
     <div className="min-h-screen bg-black text-white">
       {/* Ranking Table */}
@@ -120,7 +127,10 @@ export default function Rankings({ data }: RankingsProps) {
                 <div className="col-span-1 text-center font-bold">
                   {item.univId}
                 </div>
-                <div className="col-span-2 flex items-center gap-2">
+                <div
+                  className="col-span-2 flex items-center gap-2"
+                  onClick={() => handleUnivClick(item.univName)}
+                >
                   {item.univLogo ? (
                     <Image
                       src={getSafeImageUrl(item.univLogo) || "/placeholder.svg"}
