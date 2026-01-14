@@ -1,16 +1,17 @@
-import Podium from "./components/Podium";
-import Header from "./components/global/Header";
-import Rankings from "./components/Rankings";
-import { mockData } from "./data/mock-ranking";
+import UnivRankingSection from "@/_components/univRankingSection";
+import SubHeaderMain from "@/components/sub-header-main";
 
-export default function Page() {
-  // mockData.data에 접근하여 배열 가져오기
-  const allData = [...mockData.data];
+export default async function Home() {
   return (
     <>
-      <Header />
-      <Podium data={allData} />
-      <Rankings data={allData} />
+      <SubHeaderMain
+        items={[
+          { label: "학교 랭킹", href: "/" },
+          { label: "유저 랭킹", href: "/rankings" },
+        ]}
+      />
+      <div className="h-20"></div>
+      <UnivRankingSection />
     </>
   );
 }
